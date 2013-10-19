@@ -4,6 +4,7 @@ using Mono.Terminal;
 using System.Collections.Generic;
 using System.IO;
 using System.Collections;
+using RemoteConsole;
 
 namespace Mono
 {
@@ -15,11 +16,13 @@ namespace Mono
 		bool dumb;
 		readonly Evaluator evaluator;
 		IConsole Console;
+		RealConsoleCallback callback;
 
-		public CSharpShell (Evaluator evaluator, IConsole console)
+		public CSharpShell (Evaluator evaluator, IConsole console, RealConsoleCallback callback)
 		{
 			this.evaluator = evaluator;
 			this.Console = console;
+			this.callback = callback;
 		}
 
 		protected virtual void ConsoleInterrupt (object sender, ConsoleCancelEventArgs a)
@@ -30,7 +33,7 @@ namespace Mono
 			evaluator.Interrupt ();
 		}
 
-		void SetupConsole ()
+		void SetupConsole (IConsole console, RealConsoleCallback callback)
 		{
 			if (is_unix){
 				string term = Environment.GetEnvironmentVariable ("TERM");
@@ -38,7 +41,7 @@ namespace Mono
 			} else
 				dumb = false;
 
-			editor = new Mono.Terminal.LineEditor (new RealConsole(), "csharp", 300);
+			editor = new Mono.Terminal.LineEditor (console, callback, "csharp", 300);
 			InteractiveBaseShell.Editor = editor;
 
 			editor.AutoCompleteEvent += delegate (string s, int pos){
@@ -70,7 +73,7 @@ namespace Mono
 			};
 			#endif
 
-			Console.CancelKeyPress += ConsoleInterrupt;
+			callback.CancelKeyPressEvent += ConsoleInterrupt;
 		}
 
 		string GetLine (bool primary)
@@ -110,7 +113,7 @@ namespace Mono
 			// has the undesirable side effect of making
 			// errors plain, with no coloring.
 			//			Report.Stderr = Console.Out;
-			SetupConsole ();
+			SetupConsole (this.Console, this.callback);
 
 			if (isatty && show_banner)
 				Console.WriteLine ("Mono C# Shell, type \"help;\" for help\n\nEnter statements below.");
@@ -214,7 +217,7 @@ namespace Mono
 				editor.SaveHistory ();
 			}
 
-			Console.CancelKeyPress -= ConsoleInterrupt;
+			callback.CancelKeyPressEvent -= ConsoleInterrupt;
 
 			return 0;
 		}

@@ -64,22 +64,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\class\corlib\Mono\DataConverter.cs">
-      <Link>DataConverter.cs</Link>
-    </Compile>
     <Compile Include="getline.cs" />
     <Compile Include="Repl\CSharpShell.cs" />
     <Compile Include="Repl\InteractiveBaseShell.cs" />
     <Compile Include="Repl\Driver.cs" />
-    <Compile Include="Terminal\IConsole.cs" />
-    <Compile Include="Terminal\RealConsole.cs" />
     <Compile Include="Repl\IVirtualMachine.cs" />
     <Compile Include="repl.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
     <Folder Include="Repl\" />
-    <Folder Include="Terminal\" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -106,4 +100,10 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <ItemGroup>
+    <ProjectReference Include="..\RemoteConsole\RemoteConsole\RemoteConsole.csproj">
+      <Project>{B788BC9A-7E49-4542-84F5-CED2CC1FE3B1}</Project>
+      <Name>RemoteConsole</Name>
+    </ProjectReference>
+  </ItemGroup>
 </Project>

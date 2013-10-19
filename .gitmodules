@@ -1,0 +1,6 @@
+[submodule "RemoteConsole"]
+	path = RemoteConsole
+	url = github:stangelandcl/RemoteConsole.git
+[submodule "WcfPeer"]
+	path = WcfPeer
+	url = github:stangelandcl/WcfPeer.git

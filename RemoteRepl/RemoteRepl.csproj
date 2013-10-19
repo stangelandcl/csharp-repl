@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{82853587-65FF-4897-A214-901A6AAF9D5A}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>RemoteRepl</RootNamespace>
+    <AssemblyName>RemoteRepl</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Externalconsole>true</Externalconsole>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Externalconsole>true</Externalconsole>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ServiceModel" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="CSharpReplService.cs" />
+    <Compile Include="ICSharpReplService.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <ProjectReference Include="..\csharp.csproj">
+      <Project>{0831DD4E-B428-4D6C-90B1-2206DBD4F92E}</Project>
+      <Name>csharp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\RemoteConsole\RemoteConsole\RemoteConsole.csproj">
+      <Project>{B788BC9A-7E49-4542-84F5-CED2CC1FE3B1}</Project>
+      <Name>RemoteConsole</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\WcfPeer\WcfPeer\WcfPeer.csproj">
+      <Project>{E3B40482-F6A4-4BB9-AA3B-02C533155FC8}</Project>
+      <Name>WcfPeer</Name>
+    </ProjectReference>
+  </ItemGroup>
+</Project>

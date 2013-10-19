@@ -2,17 +2,20 @@ using System;
 using Mono.CSharp;
 using Mono;
 using Mono.Terminal;
+using RemoteConsole;
 
 namespace Mono
 {
 	public class repl
 	{
-		public repl (IConsole console)
+		public repl (IConsole console, RealConsoleCallback callback)
 		{
 			this.console = console;
+			this.callback = callback;
 		}
 
 		IConsole console;
+		RealConsoleCallback callback;
 
 		public int Run(){		
 			// Enable unsafe code by default
@@ -38,7 +41,7 @@ namespace Mono
 			} else
 				#endif
 			{
-				shell = new CSharpShell (eval, console);
+				shell = new CSharpShell (eval, console, callback);
 			}
 			return shell.Run (startup_files);
 		}

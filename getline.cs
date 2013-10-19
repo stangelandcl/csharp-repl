@@ -29,6 +29,7 @@ using System.Text;
 using System.IO;
 using System.Threading;
 using System.Reflection;
+using RemoteConsole;
 
 namespace Mono.Terminal {
 
@@ -147,11 +148,14 @@ namespace Mono.Terminal {
 		
 		static Handler [] handlers;
 		IConsole Console;
-		public LineEditor (IConsole console, string name) : this (console, name, 10) { }
+		RealConsoleCallback callback;
+		public LineEditor (IConsole console, RealConsoleCallback callback, string name) 
+		: this (console, callback, name, 10) { }
 		
-		public LineEditor (IConsole console, string name, int histsize)
+		public LineEditor (IConsole console,RealConsoleCallback callback, string name, int histsize)
 		{
 			this.Console = console;
+			this.callback = callback;
 			handlers = new Handler [] {
 				new Handler (ConsoleKey.Home,       CmdHome),
 				new Handler (ConsoleKey.End,        CmdEnd),
@@ -831,7 +835,7 @@ namespace Mono.Terminal {
 		{
 			edit_thread = Thread.CurrentThread;
 			searching = 0;
-			Console.CancelKeyPress += InterruptEdit;
+			callback.CancelKeyPressEvent += InterruptEdit;
 			
 			done = false;
 			history.CursorToEnd ();
@@ -855,7 +859,7 @@ namespace Mono.Terminal {
 			} while (!done);
 			Console.WriteLine ();
 			
-			Console.CancelKeyPress -= InterruptEdit;
+			callback.CancelKeyPressEvent -= InterruptEdit;
 
 			if (text == null){
 				history.Close ();

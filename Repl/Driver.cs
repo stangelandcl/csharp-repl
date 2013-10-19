@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using Mono.CSharp;
 using Mono.Terminal;
+using RemoteConsole;
 
 namespace Mono
 {
@@ -12,7 +13,7 @@ namespace Mono
 
 		static int Main (string [] args)
 		{
-			var repl = new repl(new RealConsole());
+			var repl = new repl(new RealConsole(), new RealConsoleCallback());
 			return repl.Run();
 
 //			var cmd = new CommandLineParser (Console.Out);
