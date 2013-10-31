@@ -64,9 +64,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\class\corlib\Mono\DataConverter.cs">
-      <Link>DataConverter.cs</Link>
-    </Compile>
     <Compile Include="getline.cs" />
     <Compile Include="Repl\CSharpShell.cs" />
     <Compile Include="Repl\InteractiveBaseShell.cs" />
@@ -78,8 +75,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
-    <Folder Include="Repl\" />
-    <Folder Include="Terminal\" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
